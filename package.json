@@ -9,7 +9,6 @@
   "author": "max ogden",
   "license": "BSD",
   "dependencies": {
-    "node-archiver": "~0.1.0",
     "ls-stream": "0.0.4",
     "archiver": "~0.4.8"
   }

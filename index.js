@@ -1,8 +1,8 @@
 var fs = require('fs')
+var path = require('path')
 var zlib = require('zlib')
 var ls = require('ls-stream')
 var archiver = require('archiver')
-var path = require('path')
 
 module.exports = streamFolder
 
