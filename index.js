@@ -9,6 +9,7 @@ module.exports = streamFolder
 function streamFolder(dir) {
   var gzipper = zlib.createGzip()
   var archive = archiver('tar')
+  var emptyBuffer = new Buffer(0)
 
   archive.on('error', function(err) {
     throw err
@@ -19,9 +20,15 @@ function streamFolder(dir) {
   ls(dir)
     .on('data', function(file) {
       if (!file.stat.isFile()) return
-      var relPath = path.relative(__dirname, file.path)
-      console.log(file.path, relPath)
-      archive.append(fs.createReadStream(file.path), { name: relPath })
+      var relPath = path.relative(dir, file.path)
+      var fileData
+      if (file.stat.size === 0) {
+        fileData = emptyBuffer
+      } else  {
+        fileData = fs.createReadStream(file.path)
+        fileData.on('data', function() { })
+      }
+      archive.append(fileData, { name: relPath })
     })
     .on('end', function() {
       archive.finalize(function(err, written) {

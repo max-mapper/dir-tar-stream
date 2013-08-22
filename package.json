@@ -1,6 +1,6 @@
 {
   "name": "dir-tar-stream",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "turns a directory tree into a .tar.gz stream",
   "main": "index.js",
   "scripts": {
