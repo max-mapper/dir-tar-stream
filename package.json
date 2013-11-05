@@ -9,9 +9,6 @@
   "author": "max ogden",
   "license": "BSD",
   "dependencies": {
-    "ls-stream": "0.0.4",
-    "archiver": "~0.4.10",
-    "concat-stream": "~1.0.1",
     "fstream": "~0.1.24",
     "tar": "~0.1.18"
   }

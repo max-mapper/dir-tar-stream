@@ -1,9 +1,6 @@
-var fs = require('fs')
-var path = require('path')
 var zlib = require('zlib')
 var tar = require('tar')
 var fstream = require('fstream')
-var concat = require('concat-stream')
 
 module.exports = tgzStream
 
