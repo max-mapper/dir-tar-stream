@@ -1,6 +1,6 @@
 {
   "name": "dir-tar-stream",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "turns a directory tree into a .tar.gz stream",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
   "license": "BSD",
   "dependencies": {
     "ls-stream": "0.0.4",
-    "archiver": "~0.4.8",
-    "concat-stream": "~1.0.1"
+    "archiver": "~0.4.10",
+    "concat-stream": "~1.0.1",
+    "fstream": "~0.1.24",
+    "tar": "~0.1.18"
   }
 }

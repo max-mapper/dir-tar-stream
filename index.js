@@ -1,51 +1,28 @@
 var fs = require('fs')
 var path = require('path')
 var zlib = require('zlib')
-var ls = require('ls-stream')
-var archiver = require('archiver')
+var tar = require('tar')
+var fstream = require('fstream')
 var concat = require('concat-stream')
 
-module.exports = streamFolder
+module.exports = tgzStream
 
-function streamFolder(dir) {
-  var gzipper = zlib.createGzip()
-  var archive = archiver('tar')
-  var emptyBuffer = new Buffer(0)
-  var done
-  var pending = 0
+function tgzStream(folder, filename, includeRoot) {
+  if (!filename) filename = "attachment.tar.gz"
+  if (includeRoot !== false) includeRoot = true
   
-  archive.on('error', function(err) {
-    throw err
-  })
-
-  archive.pipe(gzipper)
-
-  ls(dir)
-    .on('data', function(file) {
-      if (!file.stat.isFile()) return
-      var relPath = path.relative(dir, file.path)
-      var fileData
-      if (file.stat.size === 0) {
-        archive.append(emptyBuffer, { name: relPath })
-      } else {
-        pending++
-        fs.createReadStream(file.path).pipe(concat(function(buf) {
-          archive.append(buf, { name: relPath })
-          finish()
-        }))
-      }
-    })
-    .on('end', function() {
-      done = true
-    })
+  var reader = fstream.Reader({type: "Directory", path: folder})
+  var pack = tar.Pack()
+  var gzip = zlib.createGzip()
+  var oldEmit = reader.emit
   
-  function finish() {
-    pending--
-    if (pending !== 0 || !done) return
-    archive.finalize(function(err, written) {
-      if (err) throw err
-    })
+  if (!includeRoot) {
+    reader.emit = function(ev, entry) {
+      if (ev === "entry") entry.root = null
+      return oldEmit.apply(reader, arguments)
+    }
   }
 
-  return gzipper
+  reader.pipe(pack).pipe(gzip)
+  return gzip
 }
