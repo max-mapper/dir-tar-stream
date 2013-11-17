@@ -8,7 +8,7 @@ function tgzStream(folder, filename, includeRoot) {
   if (!filename) filename = "attachment.tar.gz"
   if (includeRoot !== false) includeRoot = true
   
-  var reader = fstream.Reader({type: "Directory", path: folder})
+  var reader = fstream.Reader({type: "Directory", path: folder, hardlinks: false})
   var pack = tar.Pack()
   var gzip = zlib.createGzip()
   var oldEmit = reader.emit
