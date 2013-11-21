@@ -7,9 +7,21 @@
     "test": "node test.js"
   },
   "author": "max ogden",
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "fstream": "~0.1.25",
     "tar": "~0.1.18"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/maxogden/dir-tar-stream.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maxogden/dir-tar-stream/issues"
+  },
+  "homepage": "https://github.com/maxogden/dir-tar-stream"
 }
