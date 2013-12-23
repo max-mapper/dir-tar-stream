@@ -1,5 +1,7 @@
 # dir-tar-stream
 
+update: you should use https://npmjs.org/package/tar-fs instead of this module
+
 [![NPM](https://nodei.co/npm/dir-tar-stream.png)](https://nodei.co/npm/dir-tar-stream/)
 
 Takes a path to a folder and returns a tar.gz stream of the folder contents.
